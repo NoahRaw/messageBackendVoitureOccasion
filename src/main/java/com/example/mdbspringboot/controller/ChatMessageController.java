@@ -42,16 +42,16 @@ public class ChatMessageController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ChatMessage>> getChatMessagesByRoomId(@RequestParam List<Integer> userIds, HttpServletRequest request) {
+    public ResponseEntity<List<ChatMessage>> getChatMessagesByRoomId(@RequestParam List<Integer> otherUserId, HttpServletRequest request) {
         MyToken myToken=getToken(request);
         if (myToken!=null) {
-            userIds.add(myToken.getIdutilisateur());
+            otherUserId.add(myToken.getIdutilisateur());
 
-            List<ChatRoom> listChatRooms = chatRoomService.getChatRoomsByUserIds(userIds);
+            List<ChatRoom> listChatRooms = chatRoomService.getChatRoomsByUserIds(otherUserId);
             System.out.println("taille=" + listChatRooms.size());
 
             String chatName = "chat";
-            for (Integer i : userIds) {
+            for (Integer i : otherUserId) {
                 chatName = chatName + " user-" + i;
             }
 
@@ -59,7 +59,7 @@ public class ChatMessageController {
                 return ResponseEntity.ok(chatMessageService.getChatMessagesByRoomId(listChatRooms.get(0).getId()));
             }
 
-            ChatRoom cr = chatRoomService.createChatRoom(new ChatRoom("", chatName, userIds));
+            ChatRoom cr = chatRoomService.createChatRoom(new ChatRoom("", chatName, otherUserId));
             return ResponseEntity.ok(chatMessageService.getChatMessagesByRoomId(cr.getId()));
         }
 
@@ -123,10 +123,31 @@ public class ChatMessageController {
     }
 
     @PostMapping
-    public ResponseEntity<ChatMessage> saveMessage(@RequestBody ChatMessage message, HttpServletRequest request) {
+    public ResponseEntity<ChatMessage> saveMessage(@RequestBody ChatMessage message, @RequestParam List<Integer> userToSend, HttpServletRequest request) {
         MyToken myToken=getToken(request);
         if (myToken!=null) {
+            userToSend.add(myToken.getIdutilisateur());
+
+            List<ChatRoom> listChatRooms = chatRoomService.getChatRoomsByUserIds(userToSend);
+
+            String chatName = "chat";
+            for (Integer i : userToSend) {
+                chatName = chatName + " user-" + i;
+            }
+
+            ChatRoom cr = null;
+
+            if (listChatRooms.size() > 0) {
+                cr=listChatRooms.get(0);
+            }
+            else
+            {
+                cr = chatRoomService.createChatRoom(new ChatRoom("", chatName, userToSend));
+            }
+
             message.setUserId(myToken.getIdutilisateur());
+            message.setRoomId(cr.getId());
+
             return ResponseEntity.ok(chatMessageService.createChatMessage(message));
         }
 
