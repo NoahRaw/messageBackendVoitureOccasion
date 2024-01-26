@@ -69,7 +69,7 @@ public class ChatMessageController {
     
     public MyToken getToken(HttpServletRequest request) {
         // Remplacez l'URL par l'URL réelle de votre service web
-        String urlAutreService = "https://voitureoccasion-production.up.railway.app/Utilisateurs/getToken";
+        String urlAutreService = "http://localhost:52195/Utilisateurs/getToken";
         
         // Remplacez "VOTRE_BEARER_TOKEN" par votre véritable jeton d'accès
         String authHeader = request.getHeader("Authorization");
