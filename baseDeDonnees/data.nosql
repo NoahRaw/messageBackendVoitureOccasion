@@ -1,0 +1,26 @@
+db.createCollection("chat_rooms");
+db.createCollection("chat_messages");
+
+db.chat_rooms.insert( {
+  "_id": ObjectId("60b4a965b20ea8a1008a3ce4"),
+  "name": "Salle de discussion générale",
+  "users": [
+    1,
+    2
+  ]
+});
+
+db.chat_messages.insert({
+  "_id": ObjectId("60b4a965b20ea8a1008a3ce6"),
+  "roomId": ObjectId("60b4a965b20ea8a1008a3ce4"),
+  "userId": 1,
+  "content": "Bonjour, comment ça va ?",
+  "timestamp": ISODate("2022-01-01T12:00:00.000Z")
+});
+
+db.chat_messages.insert({
+  "roomId": "65a6fcf524b2180df917ca09",
+  "userId": 1,
+  "content": "Ca va bien merci ?",
+  "timestamp": ISODate("2022-01-03T12:00:00.000Z")
+});
