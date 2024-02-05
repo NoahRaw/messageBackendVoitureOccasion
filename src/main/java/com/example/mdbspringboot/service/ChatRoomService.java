@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.mdbspringboot.model.ChatRoom;
+import com.example.mdbspringboot.model.Conversation;
 import com.example.mdbspringboot.repository.ChatRoomRepository;
 
 import java.util.List;
