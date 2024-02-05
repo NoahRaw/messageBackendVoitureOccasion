@@ -27,7 +27,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("api/chat")
+@RequestMapping("chat")
 public class ChatMessageController {
 
     private final ChatMessageService chatMessageService;
