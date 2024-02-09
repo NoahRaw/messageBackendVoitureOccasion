@@ -146,7 +146,10 @@ public class ChatMessageController {
             }
             else
             {
-                cr = chatRoomService.createChatRoom(new ChatRoom("", chatName, userToSend));
+                cr=new ChatRoom();
+                cr.setName(chatName);
+                cr.setUsers(userToSend);
+                cr = chatRoomService.createChatRoom(cr);
             }
 
             message.setUserId(myToken.getIdutilisateur());
