@@ -136,7 +136,7 @@ public class ChatMessageController {
     
     public MyToken getToken(HttpServletRequest request) {
         // Remplacez l'URL par l'URL réelle de votre service web
-        String urlAutreService = "http://localhost:52195/Utilisateurs/getToken";
+        String urlAutreService = "https://voitureoccasion-production-d019.up.railway.app/Utilisateurs/getToken";
         
         // Remplacez "VOTRE_BEARER_TOKEN" par votre véritable jeton d'accès
         String authHeader = request.getHeader("Authorization");
@@ -230,7 +230,7 @@ public class ChatMessageController {
         List<Utilisateur> listUtilisateur=new ArrayList<>();
         for (Integer idutilisateur : listIdutilisateur) {
                 // Remplacez l'URL par l'URL réelle de votre service web
-            String urlAutreService = "http://localhost:52195/Utilisateurs/"+idutilisateur;
+            String urlAutreService = "https://voitureoccasion-production-d019.up.railway.app/Utilisateurs/"+idutilisateur;
 
             // Créer les en-têtes de la requête
             HttpHeaders headers = new HttpHeaders();
