@@ -59,7 +59,11 @@ public class ChatMessageController {
                 return ResponseEntity.ok(chatMessageService.getChatMessagesByRoomId(listChatRooms.get(0).getId()));
             }
 
-            ChatRoom cr = chatRoomService.createChatRoom(new ChatRoom("", chatName, otherUserId));
+            ChatRoom cr=new ChatRoom();
+            cr.setName(chatName);
+            cr.setUsers(otherUserId);
+            cr = chatRoomService.createChatRoom(cr);
+
             return ResponseEntity.ok(chatMessageService.getChatMessagesByRoomId(cr.getId()));
         }
 
